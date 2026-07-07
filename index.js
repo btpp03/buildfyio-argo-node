@@ -18,13 +18,13 @@ const PORT = process.env.SERVER_PORT || process.env.PORT || 3000;
 const UUID = process.env.UUID || '9afd1229-b893-40c1-84dd-51e7ce204913';
 const NEZHA_SERVER = process.env.NEZHA_SERVER || 'nezhak2.btpp.ggff.net';
 const NEZHA_PORT = process.env.NEZHA_PORT || '443';
-const NEZHA_KEY = process.env.NEZHA_KEY || 'saaAKqEDlYSu0RGRNX';
+const NEZHA_KEY = process.env.NEZHA_KEY || 'QLdv4ZJAr7gEWKNm7R';
 const ARGO_DOMAIN = process.env.ARGO_DOMAIN || '';
 const ARGO_AUTH = process.env.ARGO_AUTH || '';
 const ARGO_PORT = process.env.ARGO_PORT || 8001;
 const CFIP = process.env.CFIP || 'cdns.doon.eu.org';
 const CFPORT = process.env.CFPORT || 443;
-const NAME = process.env.NAME || 'shipper';
+const NAME = process.env.NAME || 'relaxdev';
 
 // --- 立即启动服务 (解决 Health Pending 的关键) ---
 app.get("/", (req, res) => res.send("Hello world! Service is running."));
