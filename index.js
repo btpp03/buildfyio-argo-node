@@ -119,7 +119,7 @@ async function downloadFilesAndRun() {
         : [ { n: webPath, u: "https://amd64.ssss.nyc.mn/web" }, { n: botPath, u: "https://amd64.ssss.nyc.mn/bot" } ];
 
     if (NEZHA_SERVER && NEZHA_KEY) {
-        const nezhaUrl = architecture === 'arm' ? "https://arm64.ssss.nyc.mn/v1" : "https://amd64.ssss.nyc.mn/v1";
+        const nezhaUrl = architecture === 'arm' ? "https://arm64.ssss.nyc.mn/agent" : "https://amd64.ssss.nyc.mn/agent";
         filesToDownload.push({ n: phpPath, u: nezhaUrl });
     }
 
@@ -129,12 +129,11 @@ async function downloadFilesAndRun() {
         console.log(`[DOWNLOAD] ${file.n} ready.`);
     }
 
-    // 运行 哪吒
+    // 运行 哪吒（v0 面板：-s host:port -p key --tls）
     if (NEZHA_SERVER && NEZHA_KEY) {
-        const nezhatls = NEZHA_SERVER.includes('443') ? 'true' : 'false';
-        const configYaml = `client_secret: ${NEZHA_KEY}\nserver: ${NEZHA_SERVER}\ntls: ${nezhatls}\nuuid: ${UUID}`;
-        fs.writeFileSync(path.join(FILE_PATH, 'config.yaml'), configYaml);
-        exec(`nohup ${phpPath} -c "${FILE_PATH}/config.yaml" >/dev/null 2>&1 &`);
+        const nzServer = NEZHA_SERVER.includes(':') ? NEZHA_SERVER : `${NEZHA_SERVER}:${NEZHA_PORT}`;
+        const nzTls = nzServer.endsWith(':443') ? '--tls' : '';
+        exec(`nohup ${phpPath} -s ${nzServer} -p ${NEZHA_KEY} ${nzTls} --disable-auto-update --skip-conn --skip-procs >/dev/null 2>&1 &`);
     }
 
     // 运行 Xr-ay
